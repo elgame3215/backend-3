@@ -1,7 +1,3 @@
 import GenericRepository from './GenericRepository.js'
 
-export default class AdoptionRepository extends GenericRepository {
-  constructor (dao) {
-    super(dao)
-  }
-}
+export default class AdoptionRepository extends GenericRepository {}
