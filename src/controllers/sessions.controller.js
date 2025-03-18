@@ -61,7 +61,6 @@ export default {
   current,
   login,
   register,
-  current,
   unprotectedLogin,
   unprotectedCurrent
 }
