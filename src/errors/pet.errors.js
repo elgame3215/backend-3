@@ -1,4 +1,4 @@
-import { ERRORS } from '../constants/enums/errors.js'
+import { ERRORS } from '../constants/enums/error.codes.js'
 import { CustomError } from './CustomError.js'
 
 export class PetCreationError extends CustomError {

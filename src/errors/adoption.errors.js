@@ -1,8 +1,8 @@
 import { ERRORS } from '../constants/enums/error.codes.js'
 import { CustomError } from './CustomError.js'
 
-export class InternalServerError extends CustomError {
+export class CreateAdoptionError extends CustomError {
   constructor () {
-    super(ERRORS.INTERNAL_SERVER_ERROR, 'Internal server error')
+    super(ERRORS.CREATE_ADOPTION_ERROR, 'Error creating adoption')
   }
 }
