@@ -1,14 +1,11 @@
 import { Router } from 'express'
 import { generatePet } from '../mocks/pets.js'
+import { MocksController } from '../controllers/mocks.controller.js'
 
 const router = Router()
 
-router.get('/mockingpets', async (req, res) => {
-  const payload = []
-  for (let i = 0; i < 100; i++) {
-    payload.push(generatePet())
-  }
-  res.status(200).json({ status: 'sucess', payload })
-})
+router.get('/mockingpets', MocksController.mockingPets)
+router.get('/mockingusers', MocksController.mockingUsers)
+router.post('/generateData', MocksController.generateData)
 
 export default router

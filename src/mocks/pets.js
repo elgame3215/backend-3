@@ -7,3 +7,11 @@ export function generatePet () {
     birthDate: faker.date.recent({ days: 1200 })
   }
 }
+
+export function generatePets (petsNum) {
+  const pets = []
+  for (let i = 0; i < petsNum; i++) {
+    pets.push(generatePet())
+  }
+  return pets
+}
