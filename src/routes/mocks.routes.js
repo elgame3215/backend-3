@@ -1,5 +1,4 @@
 import { Router } from 'express'
-import { generatePet } from '../mocks/pets.js'
 import { MocksController } from '../controllers/mocks.controller.js'
 
 const router = Router()
