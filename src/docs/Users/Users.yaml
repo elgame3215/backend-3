@@ -1,0 +1,100 @@
+paths:
+  /api/users:
+    get:
+      summary: Obtiene a todos los usuarios
+      tags:
+        - Users
+      responses:
+        "200":
+          description: Se han obtenido los usuarios exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                    description: estado de la respuesta
+                  payload:
+                    type: array
+                    description: lista de usuarios
+                    items:
+                      $ref: '#/components/schemas/User'
+        "500":
+          description: "Ocurrió un error al intentar obtener los usuarios"
+  /api/users/{uid}:
+    get:
+      summary: "Obtiene al usuario correspondiente al id recibido por parámetro"
+      tags:
+        - Users
+      responses:
+      "200":
+        description: "Se ha obtenido al usuario exitosamente"
+      "404":
+        description: "No se ha encontrado al usuario buscado"
+      "500":
+        description: "Ocurrió un error al intentar obtener los usuarios"
+
+
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: identificador único para cada usuario en la base de datos
+        first_name:
+          type: string
+          description: nombre de pila del usuario
+        last_name:
+          type: string
+          description: apellido del usuario
+        email:
+          type: string
+          description: email del usuario
+        password:
+          type: string
+          description: contraseña del usuario
+        role:
+          type: string
+          description: rol del usuario
+        pets:
+          type: array
+          description: lista de mascotas del usuario
+          items:
+            type: string
+        _v:
+          type: int
+          description: numero de version del usuario en la base de datos
+      example:
+        _id: 67bcb79ca9340155067601fa
+        first_name: John
+        last_name: Doe
+        email: "johndoe@gmail.com"
+        password: password123
+        role: user
+        pets: ["67bcb79ca9340155067601fa"]
+        _v: 0
+    UserCreate:
+      type: object
+      properties:
+        first_name:
+          type: string
+          description: nombre de pila del usuario
+        last_name:
+          type: string
+          description: apellido del usuario
+        email:
+          type: string
+          description: email del usuario
+        password:
+          type: string
+          description: contraseña del usuario
+      example:
+        first_name: John
+        last_name: Doe
+        email: "johndoe@gmail.com"
+        password: password123
