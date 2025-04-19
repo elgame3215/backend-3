@@ -26,6 +26,7 @@ const getUser = async (req, res, next) => {
 
 const updateUser = async (req, res, next) => {
   const updateBody = req.body
+  console.log({ updateBody })
   const userId = req.params.uid
   try {
     const user = await usersService.getUserById(userId)

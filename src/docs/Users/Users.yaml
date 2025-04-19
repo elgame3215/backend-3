@@ -49,7 +49,6 @@ paths:
           content:
             application/json:
               schema:
-                type: object
                 $ref: '#/components/schemas/User'
         "404":
           description: "No se ha encontrado al usuario buscado"
@@ -70,6 +69,48 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+    put:
+      operationId: updateUserById
+      summary: "Modifica al usuario correspondiente al id recibido por parámetro"
+      tags:
+        - Users
+      parameters:
+        - in: path
+          name: uid
+          schema:
+            type: string
+            pattern: '^[0-9a-fA-F]{24}$'
+          required: true
+          description: ID del usuario que se busca
+      requestBody:
+        $ref: "#/components/requestBodies/UserCreate"
+      responses:
+        "200":
+          description: "Se ha modificado al usuario exitosamente"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "404":
+          description: "No se ha encontrado al usuario buscado"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  message:
+                    type: string
+                    example: User not found
+        "500":
+          description: "Ocurrió un error inesperado"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
 
 
 
@@ -114,26 +155,6 @@ components:
         role: user
         pets: ["67bcb79ca9340155067601fa"]
         __v: 0
-    UserCreate:
-      type: object
-      properties:
-        first_name:
-          type: string
-          description: nombre de pila del usuario
-        last_name:
-          type: string
-          description: apellido del usuario
-        email:
-          type: string
-          description: email del usuario
-        password:
-          type: string
-          description: contraseña del usuario
-      example:
-        first_name: John
-        last_name: Doe
-        email: "johndoe@gmail.com"
-        password: password123
     Error:
       type: object
       properties:
@@ -146,3 +167,28 @@ components:
       required:
         - status
         - message
+  requestBodies:
+    UserCreate:
+      description: Estructura de un usuario
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              first_name:
+                type: string
+                description: nombre de pila del usuario
+              last_name:
+                type: string
+                description: apellido del usuario
+              email:
+                type: string
+                description: email del usuario
+              password:
+                type: string
+                description: contraseña del usuario
+            example:
+              first_name: John
+              last_name: Doe
+              email: "johndoe@gmail.com"
+              password: password123
