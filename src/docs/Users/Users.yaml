@@ -23,14 +23,11 @@ paths:
                     items:
                       $ref: '#/components/schemas/User'
         "500":
-          description: "Ocurrió un error al intentar obtener los usuarios"
+          description: "Ocurrió un error inesperado"
           content:
             application/json:
               schema:
-                $ref: './Errors.yaml#/components/schemas/ServerError'
-              example:
-                status: error
-                message: Internal server error
+                $ref: '#/components/schemas/Error'
 
   /api/users/{uid}:
     get:
@@ -38,6 +35,14 @@ paths:
       summary: "Obtiene al usuario correspondiente al id recibido por parámetro"
       tags:
         - Users
+      parameters:
+        - in: path
+          name: uid
+          schema:
+            type: string
+            pattern: '^[0-9a-fA-F]{24}$'
+          required: true
+          description: ID del usuario que se busca
       responses:
         "200":
           description: "Se ha obtenido al usuario exitosamente"
@@ -48,8 +53,23 @@ paths:
                 $ref: '#/components/schemas/User'
         "404":
           description: "No se ha encontrado al usuario buscado"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  message:
+                    type: string
+                    example: User not found
         "500":
-          description: "Ocurrió un error al intentar obtener los usuarios"
+          description: "Ocurrió un error inesperado"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
 
 
 
@@ -114,3 +134,15 @@ components:
         last_name: Doe
         email: "johndoe@gmail.com"
         password: password123
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+          description: estado de la respuesta
+        message:
+          type: string
+          description: mensaje de error
+      required:
+        - status
+        - message
