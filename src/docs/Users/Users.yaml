@@ -42,7 +42,7 @@ paths:
             type: string
             pattern: '^[0-9a-fA-F]{24}$'
           required: true
-          description: ID del usuario que se busca
+          description: ID del usuario
       responses:
         "200":
           description: "Se ha obtenido al usuario exitosamente"
@@ -81,7 +81,7 @@ paths:
             type: string
             pattern: '^[0-9a-fA-F]{24}$'
           required: true
-          description: ID del usuario que se busca
+          description: ID del usuario
       requestBody:
         $ref: "#/components/requestBodies/UserCreate"
       responses:
@@ -98,6 +98,52 @@ paths:
                   message:
                     type: string
                     example: User updated
+        "404":
+          description: "No se ha encontrado al usuario buscado"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  message:
+                    type: string
+                    example: User not found
+        "500":
+          description: "Ocurrió un error inesperado"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      operationId: deleteUserById
+      summary: Elimina al usuario correspondiente al id recibido por parámetro
+      tags:
+        - Users
+      parameters:
+        - in: path
+          name: uid
+          schema:
+            type: string
+            pattern: '^[0-9a-fA-F]{24}$'
+          required: true
+          description: ID del usuario
+      responses:
+        "200":
+          description: "Usuario eliminado exitosamente"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: User deleted
         "404":
           description: "No se ha encontrado al usuario buscado"
           content:

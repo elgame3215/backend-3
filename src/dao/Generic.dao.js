@@ -24,6 +24,6 @@ export class GenericDao {
   }
 
   delete = (id) => {
-    return this.model.findByIdAndDelete(id)
+    return this.model.findByIdAndDelete(id, { new: true })
   }
 }
