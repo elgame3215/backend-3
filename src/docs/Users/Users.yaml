@@ -27,7 +27,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/errorResponses/InternalServerError'
 
   /api/users/{uid}:
     get:
@@ -55,20 +55,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: error
-                  message:
-                    type: string
-                    example: User not found
+                $ref: '#/components/errorResponses/UserNotFound'
         "500":
           description: "Ocurrió un error inesperado"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/errorResponses/InternalServerError'
     put:
       operationId: updateUserById
       summary: "Modifica al usuario correspondiente al id recibido por parámetro"
@@ -103,20 +96,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: error
-                  message:
-                    type: string
-                    example: User not found
+                $ref: '#/components/errorResponses/UserNotFound'
         "500":
           description: "Ocurrió un error inesperado"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/errorResponses/InternalServerError'
     delete:
       operationId: deleteUserById
       summary: Elimina al usuario correspondiente al id recibido por parámetro
@@ -149,20 +135,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: error
-                  message:
-                    type: string
-                    example: User not found
+                $ref: '#/components/errorResponses/UserNotFound'
         "500":
           description: "Ocurrió un error inesperado"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/errorResponses/InternalServerError'
 
 
 
@@ -208,18 +187,7 @@ components:
         role: user
         pets: ["67bcb79ca9340155067601fa"]
         __v: 0
-    Error:
-      type: object
-      properties:
-        status:
-          type: string
-          description: estado de la respuesta
-        message:
-          type: string
-          description: mensaje de error
-      required:
-        - status
-        - message
+
   requestBodies:
     UserCreate:
       description: Estructura de un usuario
@@ -245,3 +213,26 @@ components:
               last_name: Doe
               email: "johndoe@gmail.com"
               password: password123
+
+  errorResponses:
+    InternalServerError:
+      type: object
+      properties:
+        status:
+          type: string
+          description: estado de la respuesta
+        message:
+          type: string
+          description: mensaje de error
+      example:
+        status: error
+        message: Internal server error
+    UserNotFound:
+      type: object
+      properties:
+        status:
+          type: string
+          example: error
+        message:
+          type: string
+          example: User not found
