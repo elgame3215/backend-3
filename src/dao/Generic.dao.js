@@ -11,6 +11,10 @@ export class GenericDao {
     return this.model.findOne(params)
   }
 
+  getById = (id) => {
+    return this.model.findById(id)
+  }
+
   save = (doc) => {
     return this.model.create(doc)
   }
@@ -20,10 +24,14 @@ export class GenericDao {
   }
 
   update = (id, doc) => {
-    return this.model.findByIdAndUpdate(id, { $set: doc })
+    return this.model.findByIdAndUpdate(id, { $set: doc }, { new: true })
   }
 
   delete = (id) => {
     return this.model.findByIdAndDelete(id, { new: true })
+  }
+
+  clear = () => {
+    return this.model.collection.drop()
   }
 }

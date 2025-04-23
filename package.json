@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node src/app.js",
     "dev": "node --watch src/app.js",
-    "test": "mocha test/supertest.test.js",
+    "test": "mocha test/**/*.test.js",
     "standard": "npx standard --fix src/**/*.js"
   },
   "keywords": [],
@@ -21,16 +21,16 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.7.5",
     "multer": "^1.4.5-lts.1",
-    "supertest": "^6.3.3",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
     "@faker-js/faker": "^9.6.0",
-    "chai": "^4.3.7",
+    "chai": "^4.5.0",
     "eslint": "^8.57.1",
-    "mocha": "^10.1.0",
-    "standard": "^17.1.2"
+    "mocha": "^10.8.2",
+    "standard": "^17.1.2",
+    "supertest": "^7.1.0"
   },
   "eslintConfig": {
     "extends": "standard"
