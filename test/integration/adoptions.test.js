@@ -15,8 +15,12 @@ describe('Adoptions API', async function () {
   const userDao = new User()
   const petDao = new Pet()
   const adoptionsDao = new Adoption()
+
   before(async function () {
     this.timeout(50000)
+    userDao.clear()
+    petDao.clear()
+    adoptionsDao.clear()
 
     const [{ _id: userID }] = await userDao.saveMany(exampleUsers)
     const [{ _id: petID }] = await petDao.save(examplePets)
@@ -50,6 +54,14 @@ describe('Adoptions API', async function () {
 
     expect(response).to.have.property('status', 200)
     expect(data).to.have.property('status', 'success')
+  })
+
+  it('should not create an adoption if user or pet does not exist', async function () {
+    const response = await client.post('/000000000000000000000000/000000000000000000000000')
+    const data = await response.body
+
+    expect(response).to.have.property('status', 404)
+    expect(data).to.have.property('status', 'error')
   })
 
   it('should get an adoption by id', async function () {
